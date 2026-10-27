@@ -1,0 +1,25 @@
+name: Build ESP-Matter Light
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Build Matter Light for ESP32-S3
+        run: |
+          docker run --rm -v "$GITHUB_WORKSPACE:/out" espressif/esp-matter:latest bash -lc '
+            cd /opt/espressif/esp-matter/examples/light
+            . /opt/esp/idf/export.sh
+            idf.py set-target esp32s3
+            idf.py build
+            cp build/*.bin /out/
+          '
+      - name: Upload firmware files
+        uses: actions/upload-artifact@v4
+        with:
+          name: esp32s3-matter-firmware
+          path: "*.bin"
