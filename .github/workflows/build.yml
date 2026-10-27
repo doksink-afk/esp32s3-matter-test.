@@ -1,6 +1,6 @@
 name: Build ESP-Matter Light
 
-on:
+"on":
   workflow_dispatch:
 
 jobs:
