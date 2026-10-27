@@ -19,6 +19,8 @@ jobs:
             . /opt/esp/idf/export.sh
             idf.py set-target esp32s3
             idf.py build
+            cp build/bootloader/bootloader.bin /out/
+            cp build/partition_table/partition-table.bin /out/
             cp build/*.bin /out/
           '
       - name: Upload firmware files
